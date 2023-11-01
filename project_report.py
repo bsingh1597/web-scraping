@@ -1,6 +1,4 @@
 import requests
-import openpyxl
-from unidecode import unidecode
 
 login_url = "https://data.archwaypartnership.uga.edu/user/login"
 
@@ -36,37 +34,15 @@ if(len(session_cookie) > 0):
 
     response = requests.request("GET", excel_url, headers=headers)
     
-    # if response.status_code == 200:
-    #     print(response.headers)
-    #     cookies = response.cookies
-    
-    #     print(response.text)
-    
-    #     with open('test.xlsx', 'w', encoding='utf-8') as file:
-    #         file.write(response.text)
-
-    #     print('File "example.txt" has been created and written successfully.')
-    # else:
-    #     print("REquest for Excel failed")
-    
     if response.status_code == 200:
 
-        # Create a new workbook and select the active sheet
-        workbook = openpyxl.Workbook()
-        sheet = workbook.active
+        local_file_path = 'project-list-a.xlsx'
+
+    # Save the content of the response to the local file
+        with open(local_file_path, 'wb') as file:
+            file.write(response.content)
         
-         # Encode response text to UTF-8 before writing to the worksheet
-        # cleaned_text = clean_string(encoded_text.decode('utf-8'))
 
-        try:
-            sheet['A1'] =  unidecode(response.text)
-        except Exception as e:
-            print(f'Exception: {e}')
-
-        # Save the workbook to a file
-        workbook.save('api_response.xlsx')
-
-        print('API response saved to "api_response.xlsx" successfully.')
+        print('File "project-list-a.xlsx" has been created and written successfully.')
     else:
         print(f'API request failed with status code {response.status_code}')
-        print('Response:', response.text)
