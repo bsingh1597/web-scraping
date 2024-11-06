@@ -1,4 +1,2 @@
 *.xlsx
 *.ipynb_checkpoints
-[filter "stripoutput"]
-    clean = "jq --indent 1 'del(.cells[].outputs, .cells[].execution_count)'"
