@@ -1,2 +1,4 @@
 *.xlsx
 *.ipynb_checkpoints
+*.csv
+compare_files_utility.ipynb
